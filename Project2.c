@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <string.h>
 
@@ -6,7 +5,7 @@ int contactCount = 0;
 
 struct Contact {
     char name[50];
-    int phone;  // Store phone number as an integer
+    char phone[15];  // Changed to char array to store phone numbers as strings
     char email[50];
 };
 
@@ -20,11 +19,12 @@ void menu();
 
 int main() {
     struct Contact phonebook[100];
+    printf("\n\n\t---------- WELCOME TO THE PHONEBOOK -----------\n\n");
 
     while (1) {
         menu();
         int choice;
-        printf("Enter your choice: ");
+        printf("Enter your choice [ 1/2/3/4/5/6 ] : ");
         scanf("%d", &choice);
         getchar();  // To consume newline after scanf
 
@@ -45,7 +45,7 @@ int main() {
                 searchContact(phonebook);
                 break;
             case 6:
-                printf("Thank You For Using Phonebook.Exiting...\n");
+                printf("Thank you for using the Phonebook. Exiting...\n");
                 return 0;
             default:
                 printf("Invalid choice. Please try again.\n");
@@ -58,12 +58,12 @@ int main() {
 // Display the menu
 void menu() {
     printf("\n\t\t------- Phonebook Menu -------\n\n");
-    printf("1. Add Contact Details\n");
-    printf("2. Edit Contact Details\n");
-    printf("3. Display All Contacts\n");
-    printf("4. Delete Contact\n");
-    printf("5. Search Contact\n");
-    printf("6. Exit\n\n");
+    printf("\t\t1. Add Contact Details\n");
+    printf("\t\t2. Edit Contact Details\n");
+    printf("\t\t3. Display All Contacts\n");
+    printf("\t\t4. Delete Contact\n");
+    printf("\t\t5. Search Contact\n");
+    printf("\t\t6. Exit\n\n");
 }
 
 // Function to add a new contact
@@ -77,13 +77,13 @@ void addContact(struct Contact phonebook[]) {
     scanf(" %[^\n]", phonebook[contactCount].name);  // Read name for the new contact
 
     printf("Enter phone number: ");
-    scanf("%d", &phonebook[contactCount].phone);  // Read phone number as integer
+    scanf(" %[^\n]", phonebook[contactCount].phone);  // Read phone number as a string
 
     printf("Enter email: ");
     scanf(" %[^\n]", phonebook[contactCount].email);  // Read email
 
     contactCount++;  // Increment the contact count
-    printf("Contact added successfully.\n");
+    printf("\nContact added successfully.\n");
 }
 
 // Function to display all contacts in the phonebook
@@ -96,7 +96,8 @@ void displayContacts(struct Contact phonebook[]) {
     printf("\nPhonebook Contacts:\n");
     printf("\t--------------\n");
     for (int i = 0; i < contactCount; i++) {
-        printf("%d) Name: %s \n   Phone: %d \n   Email: %s\n", i + 1, phonebook[i].name, phonebook[i].phone, phonebook[i].email);
+        printf("%d) Name: %s \n   Phone: %s \n   Email: %s\n", 
+               i + 1, phonebook[i].name, phonebook[i].phone, phonebook[i].email);
         printf("\t--------------\n");
     }
 }
@@ -117,11 +118,11 @@ void editContact(struct Contact phonebook[]) {
         return;
     }
 
-    //accessing the contact using its index in the array
+    // Accessing the contact using its index in the array
     printf("Editing contact: %s\n", phonebook[contactNumber - 1].name);
 
     int choice;
-    printf("\nSelect the field you want to update [ 1/2/3 ]:\n");
+    printf("\nSelect the field you want to update [1/2/3]:\n");
     printf("1. Name\n");
     printf("2. Phone Number\n");
     printf("3. Email\n");
@@ -136,7 +137,7 @@ void editContact(struct Contact phonebook[]) {
             break;
         case 2:
             printf("Enter new phone number: ");
-            scanf("%d", &phonebook[contactNumber - 1].phone);
+            scanf(" %[^\n]", phonebook[contactNumber - 1].phone);
             break;
         case 3:
             printf("Enter new email: ");
@@ -147,7 +148,7 @@ void editContact(struct Contact phonebook[]) {
             return;
     }
 
-    printf("Contact updated successfully.\n");
+    printf("\nContact updated successfully.\n");
 }
 
 // Function to delete contact
@@ -171,9 +172,8 @@ void deleteContact(struct Contact phonebook[]) {
     }
 
     contactCount--;  // Decrease the contact count after deletion
-    printf("Contact deleted successfully.\n");
+    printf("\nContact deleted successfully.\n");
 }
-
 
 // Function to search for a contact by name
 void searchContact(struct Contact phonebook[]) {
@@ -186,9 +186,8 @@ void searchContact(struct Contact phonebook[]) {
     for (int i = 0; i < contactCount; i++) {
         // Compare each contact's name exactly with the search query
         if (strcmp(phonebook[i].name, searchName) == 0) {
-           
-            printf("%d) Name: %s \n   Phone: %d \n   Email: %s\n", i + 1, phonebook[i].name, phonebook[i].phone, phonebook[i].email);
-           
+            printf("\nName: %s \n   Phone: %s \n   Email: %s\n", 
+                   i + 1, phonebook[i].name, phonebook[i].phone, phonebook[i].email);
             found = 1;
             break;  // Exit the loop after the first match is found
         }
