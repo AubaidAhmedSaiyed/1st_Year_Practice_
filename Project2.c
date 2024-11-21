@@ -181,13 +181,17 @@ void searchContact(struct Contact phonebook[]) {
     int found = 0;
 
     printf("Enter the name to search: ");
+
     scanf(" %[^\n]", searchName);  // Read search name
 
     for (int i = 0; i < contactCount; i++) {
         // Compare each contact's name exactly with the search query
         if (strcmp(phonebook[i].name, searchName) == 0) {
-            printf("\nName: %s \n   Phone: %s \n   Email: %s\n", 
-                   i + 1, phonebook[i].name, phonebook[i].phone, phonebook[i].email);
+
+            printf("\n\tContact Number %d:\n", i + 1); // Display the contact number
+            printf("\t- Name: %s\n", phonebook[i].name);   // Print the contact name
+            printf("\t- Phone: %s\n", phonebook[i].phone); // Print the phone number
+            printf("\t- Email: %s\n", phonebook[i].email); // Print the email address
             found = 1;
             break;  // Exit the loop after the first match is found
         }
