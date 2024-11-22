@@ -1,7 +1,10 @@
+// Mini Project - Prepared by 24DIT063_Aubaid Ahmed
+// Topic - Simple Phone Book
+
 #include <stdio.h>
 #include <string.h>
 
-int contactCount = 0;
+int contactCount = 0; // to count number of contacts
 
 struct Contact {
     char name[50];
@@ -23,7 +26,7 @@ int main() {
     struct Contact phonebook[100];
     printf("\n\n\t---------- WELCOME TO THE PHONEBOOK -----------\n\n");
 
-    // Load contacts from the file when the program starts
+    // read contacts from the file when the program starts
     loadContacts(phonebook);
 
     while (1) {
@@ -211,7 +214,7 @@ void saveContacts(struct Contact phonebook[]) {
         printf("Error opening file for saving.\n");
         return;
     }
-
+    // writing contacts in the file
     for (int i = 0; i < contactCount; i++) {
         fprintf(file, "%s,%s,%s\n", phonebook[i].name, phonebook[i].phone, phonebook[i].email);
     }
@@ -228,7 +231,7 @@ void loadContacts(struct Contact phonebook[]) {
         return;
     }
 
-    while (fscanf(file, " %[^,],%[^,],%[^\n]\n", 
+    while (fscanf(file, " %[^,],%[^,],%[^\n]\n", // reading contacts till reach EOF
                   phonebook[contactCount].name, 
                   phonebook[contactCount].phone, 
                   phonebook[contactCount].email) != EOF) {
